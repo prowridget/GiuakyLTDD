@@ -11,11 +11,19 @@ exports.getAllUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const newUser = new User({ name, email, password });
+    const { full_name, email, password, phone_number, address, country } = req.body;
+    const newUser = new User({
+      full_name,
+      email,
+      password,
+      phone_number,
+      address,
+      country,
+    });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Cannot create user" });
   }
 };
